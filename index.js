@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 const port = 3000;
 
+/*
 app.get("/", (req, res) => {
   const today = new Date();
   const day = today.getDay();
@@ -19,6 +20,17 @@ app.get("/", (req, res) => {
     dayType: typeOfDay,
     advice: adv,
   });
+});
+*/
+
+app.get("/", (req, res) => {
+  const data = {
+    title: "EJS Tags",
+    seconds: new Date().getSeconds(),
+    items: ["apple", "banana", "cherry"],
+    htmlContent: "<em>This is some em text</em>",
+  };
+  res.render("index.ejs", data);
 });
 
 app.listen(port, () => {
