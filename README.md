@@ -132,3 +132,13 @@ app.get("/", (req, res) =>{
 ```
 <% if (locals.numberOfLetters) %>
 ```
+
+## Re-using EJS code with Partials and Layouts (includes and templating):
+
+### Static Files:
+
+- Files that don't change, go in public folders.
+
+```
+app.use(express.static("public")) // Tells the middleware to use the public folder to search for static files
+```
