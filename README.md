@@ -73,3 +73,62 @@ app.get("/", (req, res) => {
         <% } %>
 </ul>
 ```
+
+## EJS and Passing data:
+
+- Passing data from server to client and vice-versa
+
+```
+// Server to EJS:
+app.get("/", (req, res) => {
+    res.render("index.ejs", {key: 'value'});
+});
+
+<h1>Hello, <%= key %></h1>
+```
+
+### Catching in EJS when there is no data to pass:
+
+- We can mitigate if there's no data, such as if the data being pulled is corrupted, using locals
+
+ie:
+
+```
+// index.js:
+app.get("/", (req, res) =>{
+    res.render("index.ejs"); //No data being passed to the frontend, only the page render
+})
+
+// index.ejs, we can use it where we potentially have no data:
+<% if(locals.fruits) { %>
+// List code or whatever you're rendering
+<% } %>
+```
+
+- Locals can be set to anything you wish via res.locals = {data: whatever};
+- This can be used to test the presence of data before you commit to the render like a fallback
+
+### EJS > Server way around - Passing data:
+
+- Example using a form:
+
+```
+// HTML:
+<form action ="/submit" method="POST">
+    <input type="text" name="lName">
+    <input type="text" name="fName">
+    <input type="submit" value="OK">
+
+// app.post("/submit", (req,res) => {
+    res.render("index.ejs", {
+        name: req.body['fName']
+    })
+})
+
+```
+
+- REMEMBER: When doing if statements and the like, locals should be used for a form as it checks for existence first before running.
+
+```
+<% if (locals.numberOfLetters) %>
+```
